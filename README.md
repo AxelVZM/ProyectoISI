@@ -1,8 +1,3 @@
-LO QUEREMOS PROFE <3
-
-
-
-
 
 backend/ backend del proyecto
 
