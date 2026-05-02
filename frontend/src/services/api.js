@@ -3,6 +3,9 @@
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
+// Debug: muestra la URL usada por el frontend (elimina en producción si no la necesitas)
+console.log('API_BASE_URL =', API_BASE_URL);
+
 // Función helper para hacer peticiones
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem("token");
