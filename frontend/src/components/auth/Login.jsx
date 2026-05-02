@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "../../contexts/AuthContext";
-import { studentsAPI } from "../../services/api";
+import { authAPI } from "../../services/api";
 import "./Auth.css";
 
 // Esquemas de validación
@@ -93,7 +93,7 @@ const Login = () => {
     validationSchema: registerSchema,
     onSubmit: async (values) => {
       try {
-        const data = await studentsAPI.register(values);
+        await authAPI.register(values);
 
         setShowRules(true);
         registerFormik.resetForm();

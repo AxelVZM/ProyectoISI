@@ -74,6 +74,12 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 VITE_API_URL = https://backend-XXXXXX.railway.app
 ```
 
+4. Si el servicio ya estaba fallando con `npm ci --omit=dev`, redepliega después de guardar este cambio: el frontend ahora usa un `Dockerfile` propio y deja de depender del build automático de Railway.
+
+**Importante:** `VITE_API_URL` debe apuntar a la URL pública del backend en Railway, no a `localhost`. Si no se configura, el frontend caerá en `/api` y terminará pegándole a su propio dominio en lugar del backend.
+
+**CORS del backend:** verifica que `FRONTEND_URL` sea la URL pública del frontend de Railway para que el backend permita las peticiones del navegador.
+
 ---
 
 ## PASO 5: Iniciar el Despliegue
