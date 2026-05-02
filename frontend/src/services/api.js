@@ -3,7 +3,11 @@
 
 const envBase = import.meta.env.VITE_API_URL;
 const normalizedBase = envBase ? envBase.replace(/\/+$/g, "") : "";
-const API_BASE_URL = normalizedBase ? `${normalizedBase}/api` : "/api";
+const API_BASE_URL = normalizedBase
+  ? normalizedBase.endsWith("/api")
+    ? normalizedBase
+    : `${normalizedBase}/api`
+  : "/api";
 
 // Debug: muestra la URL usada por el frontend (elimina en producción si no la necesitas)
 console.log('API_BASE_URL =', API_BASE_URL);
