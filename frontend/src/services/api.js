@@ -24,6 +24,18 @@ async function request(endpoint, options = {}) {
 
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+
+    const contentType = response.headers.get("content-type") || "";
+
+    // Si la respuesta no es JSON, leer como texto y arrojar error claro
+    if (!contentType.includes("application/json")) {
+      const text = await response.text();
+      console.error("API returned non-JSON response:", text);
+      throw new Error(
+        "Respuesta inesperada del servidor (HTML). Revisa VITE_API_URL y que la petición alcance al backend."
+      );
+    }
+
     const data = await response.json();
 
     // Check if backend returned an error field
