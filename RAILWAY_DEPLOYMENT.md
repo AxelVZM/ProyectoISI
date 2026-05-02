@@ -1,4 +1,4 @@
-# 🚀 Guía Completa para Desplegar en Railway
+# Guía Completa para Desplegar en Railway
 
 ## PASO 1: Preparar el Repositorio (Ya está listo ✓)
 
