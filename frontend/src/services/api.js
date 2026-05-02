@@ -1,7 +1,9 @@
 // src/services/api.js
 // Servicio centralizado para manejar todas las peticiones API
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+const envBase = import.meta.env.VITE_API_URL;
+const normalizedBase = envBase ? envBase.replace(/\/+$/g, "") : "";
+const API_BASE_URL = normalizedBase ? `${normalizedBase}/api` : "/api";
 
 // Debug: muestra la URL usada por el frontend (elimina en producción si no la necesitas)
 console.log('API_BASE_URL =', API_BASE_URL);
