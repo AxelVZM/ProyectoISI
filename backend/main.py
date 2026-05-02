@@ -1,8 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from config.database import get_db_pool, close_db_pool
+from config.database import get_db
 from datetime import datetime
 import os
+import asyncpg
+from models.student import StudentCreate
+import controllers.authController as authController
 
 # Import routers
 from routes import (
@@ -79,6 +83,21 @@ async def root():
 @app.get("/health")
 async def health():
     return {"status": "healthy"}
+
+@app.api_route("/register", methods=["GET", "POST"])
+async def register_compat(request: Request, db: asyncpg.Connection = Depends(get_db)):
+    if request.method == "GET":
+        return {
+            "message": "Use /api/auth/register for student registration",
+            "status": "ok"
+        }
+
+    payload = await request.json()
+    user = StudentCreate(**payload)
+    result = await authController.register_student(user, db)
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+    return result
 
 @app.get("/api/test")
 async def test_endpoint():
